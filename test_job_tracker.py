@@ -1,6 +1,4 @@
-
 from datetime import date
-import csv
 
 from load_applications import (
     load_applications,
@@ -26,12 +24,18 @@ def sample_application():
 
 def test_add_application():
     applications = []
-    application = sample_application()
+    google = sample_application()
+    microsoft = {
+        **sample_application(),
+        "id": 2,
+        "company": "Microsoft",
+    }
 
-    add_application(applications, application)
+    add_application(applications, google)
+    add_application(applications, microsoft)
 
-    assert len(applications) == 1
-    assert applications[0]["company"] == "Google"
+    assert len(applications) == 2
+    assert applications[1]["company"] == "Microsoft"
 
 
 def test_search_applications():
@@ -45,27 +49,47 @@ def test_search_applications():
         },
     ]
 
-    results = search_applications(applications, "google")
+    google_results = search_applications(applications, "google")
+    microsoft_results = search_applications(applications, "microsoft")
 
-    assert len(results) == 1
-    assert results[0]["company"] == "Google"
+    assert len(google_results) == 1
+    assert microsoft_results[0]["company"] == "Microsoft"
 
 
 def test_update_application_status():
-    applications = [sample_application()]
+    applications = [
+        sample_application(),
+        {
+            **sample_application(),
+            "id": 2,
+            "company": "Microsoft",
+        },
+    ]
 
-    result = update_application_status(applications, 1, "Interview")
+    first_result = update_application_status(
+        applications, 1, "Interview"
+    )
+    second_result = update_application_status(
+        applications, 2, "Offer"
+    )
 
-    assert result is True
-    assert applications[0]["status"] == "Interview"
+    assert first_result is True
+    assert second_result is True
+    assert applications[1]["status"] == "Offer"
 
 
 def test_update_missing_application():
     applications = [sample_application()]
 
-    result = update_application_status(applications, 99, "Interview")
+    first_result = update_application_status(
+        applications, 99, "Interview"
+    )
+    second_result = update_application_status(
+        applications, 100, "Offer"
+    )
 
-    assert result is False
+    assert first_result is False
+    assert second_result is False
     assert applications[0]["status"] == "Applied"
 
 
@@ -86,9 +110,19 @@ def test_find_upcoming_deadlines():
         },
     ]
 
-    results = find_upcoming_deadlines(applications, date(2026, 10, 20))
+    results = find_upcoming_deadlines(
+        applications, date(2026, 10, 20)
+    )
+    later_results = find_upcoming_deadlines(
+        applications, date(2026, 10, 21)
+    )
 
-    assert {app["company"] for app in results} == {"Google", "Microsoft"}
+    assert {app["company"] for app in results} == {
+        "Google", "Microsoft"
+    }
+    assert {app["company"] for app in later_results} == {
+        "Microsoft"
+    }
 
 
 def test_calculate_application_summary():
@@ -110,11 +144,16 @@ def test_calculate_application_summary():
         },
     ]
 
-    summary = calculate_application_summary(applications, date(2026, 10, 20))
+    summary = calculate_application_summary(
+        applications, date(2026, 10, 20)
+    )
+    later_summary = calculate_application_summary(
+        applications, date(2026, 10, 21)
+    )
 
     assert summary["total"] == 3
     assert summary["active"] == 2
-    assert summary["upcoming"] == 2
+    assert later_summary["upcoming"] == 1
 
 
 def test_save_and_load_applications(tmp_path):
