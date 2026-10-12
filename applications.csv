@@ -1,9 +1,10 @@
-id,company,position,application_date,deadline,status
-1,Google,Software Engineering Intern,2026-10-01,2026-10-15,Applied
-2,Microsoft,Software Engineer Intern,2026-10-02,2026-10-20,Interview
-3,Amazon,Software Development Engineer Intern,2026-10-03,2026-10-25,Applied
-4,Apple,Software Engineering Intern,2026-10-04,2026-10-12,Rejected
-5,Meta,Software Engineer Intern,2026-10-05,2026-10-30,Interview
-6,Netflix,Software Engineering Intern,2026-10-06,2026-11-05,Offer
-7,Stark Industries,Software Engineering Intern,2026-10-07,2026-10-18,Applied
-8,Accenture,Technology Analyst,2026-10-08,2026-10-22,Withdrawn
+id,company,position,application_date,deadline,status
+1,Google,Software Engineering Intern,2026-10-01,2026-10-15,Applied
+2,Microsoft,Software Engineer Intern,2026-10-02,2026-10-20,Interview
+3,Amazon,Software Development Engineer Intern,2026-10-03,2026-10-25,Applied
+4,Apple,Software Engineering Intern,2026-10-04,2026-10-12,Rejected
+5,Meta,Software Engineer Intern,2026-10-05,2026-10-30,Interview
+6,Netflix,Software Engineering Intern,2026-10-06,2026-11-05,Offer
+7,Stark Industries,Software Engineering Intern,2026-10-07,2026-10-18,Applied
+8,Accenture,Technology Analyst,2026-10-08,2026-10-22,Withdrawn
+9,WellTech,Machine Learning Intern,2026-10-12,2026-10-15,Applied
