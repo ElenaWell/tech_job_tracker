@@ -56,12 +56,14 @@ def add_application(applications, application):
     applications.append(application)
 
 def search_applications(applications, search_term):
-    """Search applications by company or position."""
-
     results = []
+    search_term = search_term.strip().lower()
 
     for application in applications:
-        if search_term in application["company"] or search_term in application["position"]:
+        company = application["company"].lower()
+        position = application["position"].lower()
+
+        if search_term in company or search_term in position:
             results.append(application)
 
     return results
