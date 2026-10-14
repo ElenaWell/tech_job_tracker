@@ -1,4 +1,5 @@
 from datetime import date
+import pytest 
 
 from load_applications import (
     load_applications,
@@ -168,3 +169,6 @@ def test_save_and_load_applications(tmp_path):
     assert loaded[0]["application_date"] == date(2026, 10, 1)
     assert loaded[0]["deadline"] == date(2026, 10, 20)
     assert loaded[0]["id"] == 1
+
+
+pytest.main(["-v", "--tb=line", "-rN", __file__])
